@@ -60,7 +60,7 @@ Player.prototype = {
                 }
 
                 // right
-                if ((this.keyboarder.isDownNoDelay(this.keyboarder.KEYS.RIGHT)  || this.keyboarder.isDownNoDelay(this.keyboarder.KEYS.D)) && !this.ducking ) {
+                if ((this.keyboarder.isDownNoDelay(this.keyboarder.KEYS.RIGHT) || this.keyboarder.isDownNoDelay(this.keyboarder.KEYS.D)) && !this.ducking ) {
                     if (this.velX < this.speed) {
                         this.velX++;
                     }
