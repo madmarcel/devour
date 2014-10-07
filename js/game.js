@@ -15,7 +15,7 @@ var Game = function() {
 
     this.boxes = [];
     this.boxes.push( new Box( this.draw, 0, 560, 800, 40, false ) );
-    this.boxes.push( new Box( this.draw, 95, 520, 3, 40, false ) );
+    this.boxes.push( new Box( this.draw, 95, 514, 3, 50, false ) );
     this.boxes.push( new Box( this.draw, 188, 525, 3, 40, false ) );
     this.boxes.push( new Box( this.draw, 278, 525, 3, 40, false ) );
     this.boxes.push( new Box( this.draw, 378, 525, 3, 40, false ) );
@@ -27,10 +27,12 @@ var Game = function() {
     this.boxes.push( new Box( this.draw, 0, 150, 30, 420, true ) );
 
     var wolfMouthRoof = new Box( this.draw, 0, 0, 1000, 80, false );
+    var wolfTongue = new Box( this.draw, 40, 560, 710, 80, false );
 
     this.boxes.push( wolfMouthRoof );
+    this.boxes.push( wolfTongue );
 
-    this.bigbadwolf = new BigBadWolf( this.draw, wolfMouthRoof );
+    this.bigbadwolf = new BigBadWolf( this.draw, wolfMouthRoof, wolfTongue );
 
     this.player = new Player( this.draw, this );
 
@@ -168,7 +170,8 @@ Game.prototype = {
                            "gums",
                            "throat",
                            "critters",
-                           "deadscreen"
+                           "deadscreen",
+                           "tongue"
                           ];
 
         var self = this;

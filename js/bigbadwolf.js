@@ -1,6 +1,6 @@
 'use strict';
 
-var BigBadWolf = function(draw, roofMouth) {
+var BigBadWolf = function(draw, roofMouth, tongue) {
     this.draw = draw;
     //this.fullSprite = new Sprite( 800, 600, [ { ssx: 0, ssy: 0 } ], 1 );
 
@@ -31,7 +31,10 @@ var BigBadWolf = function(draw, roofMouth) {
 
     this.throat = new Sprite(104, 485, [ { ssx: 0, ssy: 0 } ], 6 );
 
+    this.tongueSprite = new Sprite(748, 130, [ { ssx: 0, ssy: 0 } ], 9 );
+
     this.roofMouth = roofMouth;
+    this.tongue = tongue;
 };
 
 BigBadWolf.prototype = {
@@ -47,6 +50,9 @@ BigBadWolf.prototype = {
         this.eyes.sprite.render( this.draw.ctx, this.eyes.x, this.headTop.y + this.eyes.y, false );
     },
     render2: function() {
+
+        this.tongueSprite.render( this.draw.ctx, 20, this.tongue.y - 58 , false );
+
         this.headBottom.render( this.draw.ctx, 0, 491, false );
 
         if ( this.headTop.y >= (this.headTop.yMax - 80) && this.headTop.y <= (this.headTop.yMax - 20) && this.headVelY > 0 ) {
@@ -77,6 +83,15 @@ BigBadWolf.prototype = {
         } else {
             this.roofMouth.isDeadly = false;
         }
+
+        // the tongue
+        if ( this.headVelY === -1 && this.roofMouth.y < 300 && this.tongue.y > 518) {
+            this.tongue.y--;
+        }
+        if ( this.headVelY === 1 && this.tongue.y < 561 ) {
+            this.tongue.y++;
+        }
+
         // shutdown the generators
         if ( this.headTop.y >= (this.headTop.yMax - 100) ) {
             this.toggleGenerators( true, generators );
