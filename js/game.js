@@ -77,6 +77,9 @@ var Game = function() {
 
     this.titleScreen = new Sprite( 800, 600, [ { ssx: 0, ssy: 0 } ], 0 );
     this.deadScreen = new Sprite( 800, 600, [ { ssx: 0, ssy: 0 } ], 8 );
+
+    this.keyDelayCounter = new DelayCounter(500);
+    this.keyDelayCounter.reset();
 };
 
 Game.prototype = {
@@ -113,7 +116,7 @@ Game.prototype = {
     updateLoading: function() {
     },
     updateTitle: function() {
-        if ( this.keyboard.isDown( this.keyboard.KEYS.SPACE ) || this.keyboard.isDown( this.keyboard.KEYS.UP ) ) {
+        if ( this.keyDelayCounter.isDone() && (this.keyboard.isDownNoDelay( this.keyboard.KEYS.SPACE ) || this.keyboard.isDownNoDelay( this.keyboard.KEYS.UP )) ) {
             this.state = 'GAME';
             this.startTimer();
         }
@@ -133,11 +136,12 @@ Game.prototype = {
     },
     updateDead: function() {
         this.stopTimer();
-        if ( this.keyboard.isDown( this.keyboard.KEYS.SPACE ) || this.keyboard.isDown( this.keyboard.KEYS.UP ) ) {
+        if ( this.keyDelayCounter.isDone() && (this.keyboard.isDownNoDelay( this.keyboard.KEYS.SPACE ) || this.keyboard.isDownNoDelay( this.keyboard.KEYS.UP )) ) {
 
             this.resetGame();
 
             this.state = 'TITLE';
+            this.keyDelayCounter.reset();
         }
     },
     render: function(screen) {
@@ -206,6 +210,8 @@ Game.prototype = {
         this.titleScreen.render( this.draw.ctx, 0, 0, false );
         this.draw.text('Press space to start', this.gameSize.width / 2, 450, 'white', 'center');
         this.draw.text('Controls: Arrow keys or AWSD to move the bunny', 180, 580, 'white', 'center', 10);
+
+        this.draw.text('v1.1 - Now with extra crocodile, more sausage, heapings of unfortunate grannies AND the bunny can escape!', 400, 20, 'white', 'center', 10);
     },
     drawGameScreen: function() {
         this.bigbadwolf.render();

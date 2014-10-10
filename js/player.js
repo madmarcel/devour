@@ -101,6 +101,7 @@ Player.prototype = {
                     if ( this.game.boxes[i].isDeadly && dir !== null ) {
                         // console.log("You're DEAD!");
                         this.game.state = 'DEAD';
+                        this.game.keyDelayCounter.reset();
                     }
                     if (dir === 'l' || dir === 'r') {
                         this.velX = 0;

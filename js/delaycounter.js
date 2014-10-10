@@ -3,6 +3,9 @@
 var DelayCounter = function( delta ) {
         this.timestamp = getTimeStamp();
         this.deltas = delta || [];
+        if ( delta && !Array.isArray( delta )) {
+                this.deltas = [ delta ];
+        }
         this.currentDelta = 0;
     };
 
@@ -12,11 +15,8 @@ DelayCounter.prototype = {
     },
     check: function() {
         if ( getTimeStamp() - this.timestamp > this.deltas[this.currentDelta] ) {
-            // console.log( this.deltas[this.currentDelta] + this.timestamp );
             this.next();
-            //return true;
         }
-        //return false;
     },
     next: function() {
         this.start();
@@ -24,14 +24,12 @@ DelayCounter.prototype = {
         if ( this.currentDelta >= this.deltas.length ) {
             this.currentDelta = 0;
         }
-        // console.log( 'next' + this.currentDelta + this.deltas[this.currentDelta] + " - " + this.timestamp );
     },
     getStage: function() {
         this.check();
-
         return this.currentDelta;
     },
-    isDone : function() {        
+    isDone : function() {
         if ( getTimeStamp() - this.timestamp > this.deltas[this.currentDelta] ) {
             return true;
         }
